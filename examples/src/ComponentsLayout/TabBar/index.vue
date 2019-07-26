@@ -1,25 +1,25 @@
 <template>
   <div id="tab-bar">
-    <div class="nav border-half-top">
-      <router-link class="bar" :to="'/tabs/Movie/index'" replace>
+    <div class="container border-half-top">
+      <router-link class="bar" :to="'/movie'" replace>
         <div class="button">
           <div class="icon"><i class="fa fa-video-camera"></i></div>
           <div class="text">视频</div>
         </div>
       </router-link>
-      <router-link class="bar" :to="'/tabs/Singer/index'" replace>
+      <router-link class="bar" :to="'/singer'" replace>
         <div class="button">
           <div class="icon"><i class="fa fa-camera-retro"></i></div>
           <div class="text">歌手</div>
         </div>
       </router-link>
-      <router-link class="bar" :to="'/tabs/Rank/index'" replace>
+      <router-link class="bar" :to="'/rank'" replace>
         <div class="button">
           <div class="icon"><i class="fa fa-camera-retro"></i></div>
           <div class="text">排行</div>
         </div>
       </router-link>
-      <router-link class="bar" :to="'/tabs/Song/index'" replace>
+      <router-link class="bar" :to="'/song'" replace>
         <div class="button">
           <div class="icon"><i class="fa fa-camera-retro"></i></div>
           <div class="text">歌单</div>
@@ -33,16 +33,17 @@ export default {
 
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
+  @import '../../assets/css/mxin';
   #tab-bar
     height 50px
-    background #252525
+    background $bgColor
     position fixed
     bottom 0
     left 0
     right 0
     z-index 4
-    .nav
+    .container
       display flex
       width 100%
       height 100%
@@ -51,10 +52,10 @@ export default {
         display flex
         justify-content center
         align-items center
-        color #ccc
+        color $defaultColor
         text-align center
         &.router-link-active
-          color #ffcd32
+          color $themeColor
         .icon
           font-size 23px
         .text

@@ -3,24 +3,26 @@
 import Vue from 'vue'
 import App from './App'
 import FastClick from 'fastclick'
-import router from './router.js'
-import config from 'app/app.json'
 import VueAppScroller from 'vue-app-scroller';
+
+import router from './router'
 import VnodeCache from '../../src/index'
 
-require(`app/app.js`);
+import '@/assets/css/reset.css'
+import '@/assets/css/common.styl'
 
 Vue.config.productionTip = false
 
-FastClick.attach(document.body);
+FastClick.attach(document.body)
 
 Vue.use(VueAppScroller);
 
 Vue.use(VnodeCache, {
   router,
-  tabbar: config.barPages.map(item=>`/${item}`),
-  common: '/'+config.commonPage
+  tabbar: ['/movie', '/rank', '/song', '/singer'],
+  common: '/player'
 })
+
 
 window.vm = new Vue({
   el: '#app',
@@ -28,4 +30,3 @@ window.vm = new Vue({
   components: { App },
   template: '<App/>'
 })
-

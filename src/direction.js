@@ -1,23 +1,23 @@
-function deriection(router,bus,tabbar,common){
+function deriection(router, bus, tabbar, common) {
   // 监听页面主动刷新
   window.addEventListener('load', () => {
-    router.replace({path: '/'})
+    router.replace({ path: '/' })
     // 重置路由序列管理
     let newVueAppEffect = {
-      count:0,
-      paths:window.$VueAppEffect.paths,
+      count: 0,
+      paths: window.$VueAppEffect.paths,
     }
-    if(common){
+    if (common) {
       newVueAppEffect[common] = 9999999
     }
     window.$VueAppEffect = newVueAppEffect
   })
   // 返回和前进管理
   window.$VueAppEffect = {
-    'count':0,
-    'paths':[]
+    'count': 0,
+    'paths': []
   }
-  if(common){
+  if (common) {
     window.$VueAppEffect[common] = 9999999
   }
 
@@ -35,7 +35,7 @@ function deriection(router,bus,tabbar,common){
     }
   })
 
-  router.beforeEach((to, from, next)=>{
+  router.beforeEach((to, from, next) => {
     // 如果是外链直接跳转
     if (/\/http/.test(to.path)) {
       window.location.href = to.path
@@ -57,56 +57,60 @@ function deriection(router,bus,tabbar,common){
         // 判断是不是返回
         if (toIndex > fromIndex) { // 不是返回
           bus.$emit('forward', {
-            type:'forward',
-            isTabBar:false,
-            transitionName:'vue-app-effect-in'
+            type: 'forward',
+            isTabBar: false,
+            transitionName: 'vue-app-effect-in'
           })
           window.$VueAppEffect.paths.push(to.path)
         } else {                // 是返回
           // 判断是否是ios左滑返回
           if (!isPush && (Date.now() - endTime) < 377) {
             bus.$emit('reverse', {
-              type:'',
-              isTabBar:false,
-              transitionName:'vue-app-effect-out'
+              type: '',
+              isTabBar: false,
+              transitionName: 'vue-app-effect-out'
             })
           } else {
             bus.$emit('reverse', {
-              type:'reverse',
-              isTabBar:false,
-              transitionName:'vue-app-effect-out'
+              type: 'reverse',
+              isTabBar: false,
+              transitionName: 'vue-app-effect-out'
             })
           }
+          //chinieer
+          delete window.$VueAppEffect[from.path]
         }
-      // 是返回
+        // 是返回
       } else {
-        let count = ++ window.$VueAppEffect.count
+        let count = ++window.$VueAppEffect.count
         window.$VueAppEffect.count = count
         window.$VueAppEffect[to.path] = count
         bus.$emit('forward', {
-          type:'forward',
-          isTabBar:false,
-          transitionName:'vue-app-effect-in'
+          type: 'forward',
+          isTabBar: false,
+          transitionName: 'vue-app-effect-in'
         })
         window.$VueAppEffect.paths.push(to.path)
       }
-    // 是进入 tabbar 路由 ---------------------------------------
+      // 是进入 tabbar 路由 ---------------------------------------
     } else {
       window.$VueAppEffect.paths.pop()
       // 判断是否是ios左滑返回
       if (!isPush && (Date.now() - endTime) < 377) {
         bus.$emit('reverse', {
-          type:'',
-          isTabBar:true,
-          transitionName:'vue-app-effect-out'
+          type: '',
+          isTabBar: true,
+          transitionName: 'vue-app-effect-out'
         })
       } else {
         bus.$emit('reverse', {
-          type:'reverse',
-          isTabBar:true,
-          transitionName:'vue-app-effect-out'
+          type: 'reverse',
+          isTabBar: true,
+          transitionName: 'vue-app-effect-out'
         })
       }
+      //chinieer
+      delete window.$VueAppEffect[from.path]
       window.$VueAppEffect.paths.push(to.path)
     }
     next()

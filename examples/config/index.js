@@ -3,7 +3,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-const ip = require('ip')
 
 module.exports = {
   dev: {
@@ -14,7 +13,7 @@ module.exports = {
     proxyTable: {},
 
     // Various Dev Server settings
-    host: ip.address(), // can be overwritten by process.env.HOST 
+    host: '192.168.1.104', // can be overwritten by process.env.HOST 10.253.133.229
     port: 9090, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -46,10 +45,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../../demo/examples/index.html'),
+    index: path.resolve(__dirname, '../../docs/examples/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../demo/examples'),
+    assetsRoot: path.resolve(__dirname, '../../docs/examples'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
 
