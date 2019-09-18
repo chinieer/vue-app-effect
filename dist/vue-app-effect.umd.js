@@ -144,7 +144,7 @@ function install(Vue, bus, tabbar) {
       window.$VueAppEffect.paths.pop();
       vm.$router.replace({
         name: window.$VueAppEffect.paths.concat([]).pop()
-      }).catch(function (err) {});
+      });
     },
     next: function next(options) {
       var newPath = options.path;
@@ -166,7 +166,7 @@ function install(Vue, bus, tabbar) {
       options.vm.$router.replace({
         name: newPath,
         params: options.params
-      }).catch(function (err) {});
+      });
     }
   };
 }

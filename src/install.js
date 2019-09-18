@@ -11,7 +11,7 @@ function install(Vue, bus, tabbar) {
       window.$VueAppEffect.paths.pop()
       vm.$router.replace({
         name: window.$VueAppEffect.paths.concat([]).pop()
-      }).catch(err => { });
+      })
     },
     next: (options) => {
       let newPath = options.path
@@ -33,7 +33,7 @@ function install(Vue, bus, tabbar) {
       options.vm.$router.replace({
         name: newPath,
         params: options.params
-      }).catch(err => { });
+      })
     }
   }
 }
