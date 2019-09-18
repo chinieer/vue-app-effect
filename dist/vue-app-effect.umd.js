@@ -173,7 +173,7 @@ function install(Vue, bus, tabbar) {
 
 function deriection(router, bus, tabbar, common) {
   window.addEventListener('load', function () {
-    router.replace({ path: '/' }).catch(function (err) {});
+    router.replace({ path: '/' });
 
     var newVueAppEffect = {
       count: 0,
