@@ -138,7 +138,7 @@ function install(Vue, bus, tabbar) {
       window.$VueAppEffect.paths.pop();
       vm.$router.replace({
         name: window.$VueAppEffect.paths.concat([]).pop()
-      });
+      }).catch(function (err) {});
     },
     next: function next(options) {
       var newPath = options.path;
@@ -160,14 +160,14 @@ function install(Vue, bus, tabbar) {
       options.vm.$router.replace({
         name: newPath,
         params: options.params
-      });
+      }).catch(function (err) {});
     }
   };
 }
 
 function deriection(router, bus, tabbar, common) {
   window.addEventListener('load', function () {
-    router.replace({ path: '/' }).catch(err => { });
+    router.replace({ path: '/' }).catch(function (err) {});
 
     var newVueAppEffect = {
       count: 0,
@@ -288,10 +288,10 @@ function deriection(router, bus, tabbar, common) {
 var index = {
   install: function install$$1(Vue) {
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      router = _ref.router,
-      tabbar = _ref.tabbar,
-      _ref$common = _ref.common,
-      common = _ref$common === undefined ? '' : _ref$common;
+        router = _ref.router,
+        tabbar = _ref.tabbar,
+        _ref$common = _ref.common,
+        common = _ref$common === undefined ? '' : _ref$common;
 
     if (!router || !tabbar) {
       console.error('vue-app-effect need options: router, tabbar');

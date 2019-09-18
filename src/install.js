@@ -1,24 +1,24 @@
 import VnodeCache from './vnode-cache.js'
-function install (Vue,bus,tabbar){
+function install(Vue, bus, tabbar) {
   // vnode-cache 组件
   Vue.component('vnode-cache', VnodeCache(bus, tabbar))
-  
+
   Vue.prototype.$vueAppEffect = {
     on: (event, callback) => {
       bus.$on(event, callback)
     },
-    back: (vm)=>{
+    back: (vm) => {
       window.$VueAppEffect.paths.pop()
       vm.$router.replace({
         name: window.$VueAppEffect.paths.concat([]).pop()
-      })
+      }).catch(err => { });
     },
-    next: (options)=>{
+    next: (options) => {
       let newPath = options.path
       let newRoute = [{
         path: newPath,
         name: newPath,
-        component: {extends: options.component}
+        component: { extends: options.component }
       }]
       // 判断路由是否存在
       let find = options.vm.$router.options.routes.findIndex(item => {
@@ -33,7 +33,7 @@ function install (Vue,bus,tabbar){
       options.vm.$router.replace({
         name: newPath,
         params: options.params
-      })
+      }).catch(err => { });
     }
   }
 }
