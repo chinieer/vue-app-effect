@@ -121,7 +121,7 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git@github.com:chinieer/vue-app-effect.git"
+    "url": "git+ssh://github.com:chinieer/vue-app-effect.git"
   },
   "scripts": {
     "build": "npm run build:src && npm run build:examples",
