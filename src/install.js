@@ -30,7 +30,7 @@ function install(Vue, bus, tabbar) {
         options.vm.$router.addRoutes(newRoute)
       }
       // 然后跳转
-      options.vm.$router.replace({
+      options.vm.$router.push({
         name: newPath,
         params: options.params
       })
