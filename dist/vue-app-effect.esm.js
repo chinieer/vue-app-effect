@@ -141,24 +141,33 @@ function install(Vue, bus, tabbar) {
       });
     },
     next: function next(options) {
-      var newPath = options.path;
-      var newRoute = [{
-        path: newPath,
-        name: newPath,
-        component: { extends: options.component }
-      }];
-
+      var routePath = options.path;
+      routePath = routePath.indexOf('/') !== 0 ? '/' + routePath : routePath;
       var find = options.vm.$router.options.routes.findIndex(function (item) {
-        return item.path === newPath;
+        return item.path === routePath;
       });
-
       if (find === -1) {
+        var routeName = routePath.split('/');
+        routeName.pop();
+        routeName = routeName.join('/');
+
+        var route = options.vm.$router.options.routes.find(function (item) {
+          return item.name === routeName;
+        });
+        if (!route) {
+          throw Error(routeName + ' is not defined');
+        }
+        var newRoute = [{
+          path: routePath,
+          name: routePath,
+          component: { extends: route.component }
+        }];
         options.vm.$router.options.routes.push(newRoute[0]);
         options.vm.$router.addRoutes(newRoute);
       }
 
       options.vm.$router.push({
-        name: newPath,
+        name: routePath,
         params: options.params
       });
     }

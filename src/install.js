@@ -14,26 +14,38 @@ function install(Vue, bus, tabbar) {
       })
     },
     next: (options) => {
-      let newPath = options.path
-      let newRoute = [{
-        path: newPath,
-        name: newPath,
-        component: { extends: options.component }
-      }]
-      // 判断路由是否存在
-      let find = options.vm.$router.options.routes.findIndex(item => {
-        return item.path === newPath
-      })
-      // 不存在 添加一个新路由
+      let routePath = options.path;
+      routePath = routePath.indexOf('/') !== 0 ? `/${routePath}` : routePath;
+      let find = options.vm.$router.options.routes.findIndex(function (item) {
+        return item.path === routePath;
+      });
       if (find === -1) {
-        options.vm.$router.options.routes.push(newRoute[0])
-        options.vm.$router.addRoutes(newRoute)
+        // 找出匹配的重复使用组件 
+        let routeName = routePath.split('/')
+        routeName.pop()
+        routeName = routeName.join('/');
+
+        let route = options.vm.$router.options.routes.find(item => {
+          return item.name === routeName
+        })
+        if (!route) {
+          throw Error(routeName + ' is not defined');
+        }
+        let newRoute = [{
+          path: routePath,
+          name: routePath,
+          component: { extends: route.component }
+        }];
+        options.vm.$router.options.routes.push(newRoute[0]);
+        options.vm.$router.addRoutes(newRoute);
+
+
       }
-      // 然后跳转
+
       options.vm.$router.push({
-        name: newPath,
+        name: routePath,
         params: options.params
-      })
+      });
     }
   }
 }
