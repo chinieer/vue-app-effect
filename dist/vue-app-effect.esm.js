@@ -134,31 +134,25 @@ function install(Vue, bus, tabbar) {
     on: function on(event, callback) {
       bus.$on(event, callback);
     },
-
-    back: function back() {
+    back: function back(vm) {
       window.$VueAppEffect.paths.pop();
-      window.vm.$router.replace({
+      vm.$router.replace({
         name: window.$VueAppEffect.paths.concat([]).pop()
       });
     },
-
-    backTo: function backTo(options) {},
-
     next: function next(options) {
       var routePath = options.path;
       routePath = routePath.indexOf('/') !== 0 ? '/' + routePath : routePath;
-
-      var find = window.vm.$router.options.routes.findIndex(function (item) {
+      var find = options.vm.$router.options.routes.findIndex(function (item) {
         return item.path === routePath;
       });
-
       if (find === -1) {
         var routeName = routePath.split('/');
         routeName.pop();
         routeName = routeName.join('/');
 
-        var route = window.vm.$router.options.routes.find(function (item) {
-          return item.path === routeName;
+        var route = options.vm.$router.options.routes.find(function (item) {
+          return item.name === routeName;
         });
         if (!route) {
           throw Error(routeName + ' is not defined');
@@ -168,22 +162,15 @@ function install(Vue, bus, tabbar) {
           name: routePath,
           component: { extends: route.component }
         }];
-
-        window.vm.$router.options.routes.push(newRoute[0]);
-        window.vm.$router.addRoutes(newRoute);
+        options.vm.$router.options.routes.push(newRoute[0]);
+        options.vm.$router.addRoutes(newRoute);
       }
 
-      window.vm.$router.replace({
+      options.vm.$router.push({
         name: routePath,
         params: options.params
       });
-    },
-
-    redirectTo: function redirectTo() {},
-
-    switchTab: function switchTab() {},
-
-    reLaunch: function reLaunch() {}
+    }
   };
 }
 
