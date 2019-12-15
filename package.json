@@ -1,6 +1,6 @@
 {
   "_from": "vue-app-effect",
-  "_id": "vue-app-effect@1.0.3",
+  "_id": "vue-app-effect@1.0.4",
   "_inBundle": false,
   "_integrity": "sha512-4/PcqjigWPSdt0qQzuiRfpGaupASjbhf6cEfWKxvHwVb58Rcr3C8l0Ub2ixH6ANjfU9xPeuaRXp3Bjqb8E7t2w==",
   "_location": "/vue-app-effect",
@@ -19,7 +19,7 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/vue-app-effect/-/vue-app-effect-1.0.3.tgz",
+  "_resolved": "https://registry.npmjs.org/vue-app-effect/-/vue-app-effect-1.0.4.tgz",
   "_shasum": "7d99cee906845048181ade3fdfa37fe41cee27ac",
   "_spec": "vue-app-effect",
   "_where": "/Users/chinieer/web/vue-cli/yzyh",
@@ -130,5 +130,5 @@
     "dev": "cd examples && webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev"
   },
-  "version": "1.0.3"
+  "version": "1.0.4"
 }

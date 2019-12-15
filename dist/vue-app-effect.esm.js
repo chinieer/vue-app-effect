@@ -5,19 +5,50 @@
 */
 
 function css() {
-  return '\n    .vue-app-effect-out-enter-active,\n    .vue-app-effect-out-leave-active,\n    .vue-app-effect-in-enter-active,\n    .vue-app-effect-in-leave-active {\n      will-change: transform;\n      transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1) ;\n      bottom: 0;\n      top: 0;\n      position: absolute;\n      backface-visibility: hidden;\n      perspective: 1000;\n    }\n    .vue-app-effect-out-enter {\n      opacity: 0;\n      transform: translate3d(-70%, 0, 0);\n    }\n    .vue-app-effect-out-leave-active {\n      opacity: 0 ;\n      transform: translate3d(70%, 0, 0);\n    }\n    .vue-app-effect-in-enter {\n      opacity: 0;\n      transform: translate3d(70%, 0, 0);\n    }\n    .vue-app-effect-in-leave-active {\n      opacity: 0;\n      transform: translate3d(-70%, 0, 0);\n    }\n  ';
+  // cubic-bezier(.55,0,.1,1),
+  // cubic-bezier(0.075, 0.82, 0.165, 1)
+  return `
+    .vue-app-effect-out-enter-active,
+    .vue-app-effect-out-leave-active,
+    .vue-app-effect-in-enter-active,
+    .vue-app-effect-in-leave-active {
+      will-change: transform;
+      transition: all 400ms cubic-bezier(.55,0,.1,1);
+      bottom: 0;
+      top: 0;
+      position: absolute;
+      backface-visibility: hidden;
+      perspective: 1000;
+    }
+    .vue-app-effect-out-enter {
+      opacity: 0;
+      transform: translate3d(-70%, 0, 0);
+    }
+    .vue-app-effect-out-leave-active {
+      opacity: 0 ;
+      transform: translate3d(70%, 0, 0);
+    }
+    .vue-app-effect-in-enter {
+      opacity: 0;
+      transform: translate3d(70%, 0, 0);
+    }
+    .vue-app-effect-in-leave-active {
+      opacity: 0;
+      transform: translate3d(-70%, 0, 0);
+    }
+  `
 }
 function appendCss() {
-  var cssText = css();
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
+  let cssText = css()
+  let head = document.head || document.getElementsByTagName('head')[0]
+  let style = document.createElement('style')
+  style.type = 'text/css'
   if (style.styleSheet) {
     style.styleSheet.cssText = cssText;
   } else {
-    style.appendChild(document.createTextNode(cssText));
+    style.appendChild(document.createTextNode(cssText))
   }
-  head.appendChild(style);
+  head.appendChild(style)
 }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -297,10 +328,10 @@ function deriection(router, bus, tabbar, common) {
 var index = {
   install: function install$$1(Vue) {
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-        router = _ref.router,
-        tabbar = _ref.tabbar,
-        _ref$common = _ref.common,
-        common = _ref$common === undefined ? '' : _ref$common;
+      router = _ref.router,
+      tabbar = _ref.tabbar,
+      _ref$common = _ref.common,
+      common = _ref$common === undefined ? '' : _ref$common;
 
     if (!router || !tabbar) {
       console.error('vue-app-effect need options: router, tabbar');
