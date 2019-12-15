@@ -1,5 +1,5 @@
 /**
-* vue-app-effect v1.0.3
+* vue-app-effect v1.0.4
 * https://github.com/JooZh/vue-app-effect
 * Released under the MIT License.
 */
@@ -11,7 +11,7 @@
 }(this, (function () { 'use strict';
 
 function css() {
-  return '\n    .vue-app-effect-out-enter-active,\n    .vue-app-effect-out-leave-active,\n    .vue-app-effect-in-enter-active,\n    .vue-app-effect-in-leave-active {\n      will-change: transform;\n      transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1) ;\n      bottom: 0;\n      top: 0;\n      position: absolute;\n      backface-visibility: hidden;\n      perspective: 1000;\n    }\n    .vue-app-effect-out-enter {\n      opacity: 0;\n      transform: translate3d(-70%, 0, 0);\n    }\n    .vue-app-effect-out-leave-active {\n      opacity: 0 ;\n      transform: translate3d(70%, 0, 0);\n    }\n    .vue-app-effect-in-enter {\n      opacity: 0;\n      transform: translate3d(70%, 0, 0);\n    }\n    .vue-app-effect-in-leave-active {\n      opacity: 0;\n      transform: translate3d(-70%, 0, 0);\n    }\n  ';
+  return '\n    .vue-app-effect-out-enter-active,\n    .vue-app-effect-out-leave-active,\n    .vue-app-effect-in-enter-active,\n    .vue-app-effect-in-leave-active {\n      will-change: transform;\n      transition: all 400ms cubic-bezier(.55,0,.1,1);\n      bottom: 0;\n      top: 0;\n      position: absolute;\n      backface-visibility: hidden;\n      perspective: 1000;\n    }\n    .vue-app-effect-out-enter {\n      opacity: 0;\n      transform: translate3d(-70%, 0, 0);\n    }\n    .vue-app-effect-out-leave-active {\n      opacity: 0 ;\n      transform: translate3d(70%, 0, 0);\n    }\n    .vue-app-effect-in-enter {\n      opacity: 0;\n      transform: translate3d(70%, 0, 0);\n    }\n    .vue-app-effect-in-leave-active {\n      opacity: 0;\n      transform: translate3d(-70%, 0, 0);\n    }\n  ';
 }
 function appendCss() {
   var cssText = css();
@@ -140,25 +140,31 @@ function install(Vue, bus, tabbar) {
     on: function on(event, callback) {
       bus.$on(event, callback);
     },
-    back: function back(vm) {
+
+    back: function back() {
       window.$VueAppEffect.paths.pop();
-      vm.$router.replace({
+      window.vm.$router.replace({
         name: window.$VueAppEffect.paths.concat([]).pop()
       });
     },
+
+    backTo: function backTo(options) {},
+
     next: function next(options) {
       var routePath = options.path;
       routePath = routePath.indexOf('/') !== 0 ? '/' + routePath : routePath;
-      var find = options.vm.$router.options.routes.findIndex(function (item) {
+
+      var find = window.vm.$router.options.routes.findIndex(function (item) {
         return item.path === routePath;
       });
+
       if (find === -1) {
         var routeName = routePath.split('/');
         routeName.pop();
         routeName = routeName.join('/');
 
-        var route = options.vm.$router.options.routes.find(function (item) {
-          return item.name === routeName;
+        var route = window.vm.$router.options.routes.find(function (item) {
+          return item.path === routeName;
         });
         if (!route) {
           throw Error(routeName + ' is not defined');
@@ -168,15 +174,22 @@ function install(Vue, bus, tabbar) {
           name: routePath,
           component: { extends: route.component }
         }];
-        options.vm.$router.options.routes.push(newRoute[0]);
-        options.vm.$router.addRoutes(newRoute);
+
+        window.vm.$router.options.routes.push(newRoute[0]);
+        window.vm.$router.addRoutes(newRoute);
       }
 
-      options.vm.$router.push({
+      window.vm.$router.replace({
         name: routePath,
         params: options.params
       });
-    }
+    },
+
+    redirectTo: function redirectTo() {},
+
+    switchTab: function switchTab() {},
+
+    reLaunch: function reLaunch() {}
   };
 }
 
