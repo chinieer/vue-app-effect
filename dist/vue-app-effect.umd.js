@@ -140,9 +140,9 @@ function install(Vue, bus, tabbar) {
     on: function on(event, callback) {
       bus.$on(event, callback);
     },
-    back: function back(vm) {
+    back: function back() {
       window.$VueAppEffect.paths.pop();
-      vm.$router.replace({
+      window.vm.$router.back({
         name: window.$VueAppEffect.paths.concat([]).pop()
       });
     },
