@@ -1,7 +1,7 @@
 function deriection(router, bus, tabbar, common) {
   // 监听页面主动刷新
   window.addEventListener('load', () => {
-    router.replace({ path: '/' })
+    //router.replace({ path: '/' })
     // 重置路由序列管理
     let newVueAppEffect = {
       count: 0,
