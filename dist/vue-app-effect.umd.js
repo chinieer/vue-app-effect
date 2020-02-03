@@ -56,6 +56,7 @@ var VnodeCache = (function (bus, tabbar) {
         });
         if (findTo === -1) {
           this.paths.push(to.fullPath);
+
           this.paths = [].concat(_toConsumableArray(new Set(this.paths)));
         }
       }
@@ -140,9 +141,10 @@ function install(Vue, bus, tabbar) {
     on: function on(event, callback) {
       bus.$on(event, callback);
     },
-    back: function back() {
+    back: function back(vm) {
       window.$VueAppEffect.paths.pop();
-      window.vm.$router.back({
+
+      vm.$router.back({
         name: window.$VueAppEffect.paths.concat([]).pop()
       });
     },

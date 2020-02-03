@@ -14,12 +14,13 @@ export default (bus, tabbar) => {
     }),
     computed: {},
     watch: {
-      route (to, from) {
+      route(to, from) {
         this.to = to
         this.from = from
         let findTo = this.tabBar.findIndex(item => item === this.$route.fullPath)
         if (findTo === -1) {
           this.paths.push(to.fullPath)
+          //数组去重
           this.paths = [...new Set(this.paths)]
         }
         // console.log(window.sessionStorage)
@@ -27,7 +28,7 @@ export default (bus, tabbar) => {
         // console.log('路由', this.$router.options.routes)
       }
     },
-    created () {
+    created() {
       this.cache = {}
       this.routerLen = this.$router.options.routes.length
       this.route = this.$route
@@ -42,16 +43,16 @@ export default (bus, tabbar) => {
       //   this.direction = 'forward'
       // })
     },
-    destroyed () {
+    destroyed() {
       for (const key in this.cache) {
         const vnode = this.cache[key]
         vnode && vnode.componentInstance.$destroy()
       }
     },
     methods: {
-      reverse () {
+      reverse() {
         let beforePath = this.paths.pop()
-        
+
         let routes = this.$router.options.routes
         // 查询是不是导航路由
         let isTabBar = this.tabBar.findIndex(item => item === this.$route.fullPath)
@@ -60,7 +61,7 @@ export default (bus, tabbar) => {
         // 当不是导航路由，并且不是默认配置路由
         if (isTabBar === -1 && routerIndex >= this.routerLen) {
           // 清除对应历史记录         
-          delete  window.$VueAppEffect[beforePath]
+          delete window.$VueAppEffect[beforePath]
           window.$VueAppEffect.count -= 1
         }
         // 当不是导航的时候 删除上一个缓存
@@ -72,7 +73,7 @@ export default (bus, tabbar) => {
         // console.log('删除后：', this.cache)
       }
     },
-    render () {
+    render() {
       // 保存路由
       this.route = this.$route
       // 得到 vnode

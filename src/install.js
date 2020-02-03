@@ -7,9 +7,14 @@ function install(Vue, bus, tabbar) {
     on: (event, callback) => {
       bus.$on(event, callback)
     },
-    back: () => {
+    back: (vm) => {
       window.$VueAppEffect.paths.pop()
+      /*
       window.vm.$router.back({
+        name: window.$VueAppEffect.paths.concat([]).pop()
+      })
+      */
+      vm.$router.back({
         name: window.$VueAppEffect.paths.concat([]).pop()
       })
     },
