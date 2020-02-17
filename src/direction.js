@@ -1,5 +1,6 @@
 function deriection(router, bus, tabbar, common) {
   // 监听页面主动刷新
+  /*
   window.addEventListener('load', () => {
     //router.replace({ path: '/' })
     // 重置路由序列管理
@@ -12,6 +13,7 @@ function deriection(router, bus, tabbar, common) {
     }
     window.$VueAppEffect = newVueAppEffect
   })
+  */
   // 返回和前进管理
   window.$VueAppEffect = {
     'count': 0,
