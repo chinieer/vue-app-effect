@@ -170,7 +170,8 @@ function install(Vue, bus, tabbar) {
 
       options.vm.$router.push({
         name: routePath,
-        params: options.params
+        params: options.params,
+        query: options.query
       });
     }
   };
